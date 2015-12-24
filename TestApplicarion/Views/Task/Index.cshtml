@@ -1,0 +1,20 @@
+﻿@model IList<TestApplicarion.Models.TaskDTO>
+
+@{
+    ViewBag.Title = "Задачи";
+}
+
+@foreach (var task in Model)
+{
+    <div class="item">
+        <h3>@task.Name</h3>
+        @if (task.IsDone)
+        {
+            <div>Выполнено</div>
+        }
+        else
+        {
+            <div>Невыполнено</div>
+        }
+    </div>
+}
