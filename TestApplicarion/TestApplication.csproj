@@ -175,9 +175,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\IPagingDTO.cs" />
+    <Compile Include="Infrastructure\PagingBuilder.cs" />
+    <Compile Include="Infrastructure\PagingInfo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\TaskDTO.cs" />
     <Compile Include="Models\TaskModel.cs" />
+    <Compile Include="Models\TasksPagingDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -219,7 +223,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Infrastructure\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

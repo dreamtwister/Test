@@ -24,9 +24,14 @@ namespace TestApplicarion.Controllers
 
         //
         // GET: /Task/
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
-            return View(_model.GetList());
+            return View(_model.GetList(page));
         }
-	}
+
+        //public ActionResult List()
+        //{
+        //    return View("Index", _model.GetList());
+        //}
+    }
 }

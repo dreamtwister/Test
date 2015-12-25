@@ -16,9 +16,11 @@ namespace TestApplicarion.Models
             _repository = repository;
         }
 
-        public IList<TaskDTO> GetList()
+        public TasksPagingDTO GetList(int page = 1)
         {
-            var _res =  _repository.Tasks.Select(i => new TaskDTO
+            var _res = new TasksPagingDTO();
+
+            _res.Tasks =  _repository.Tasks.Select(i => new TaskDTO
             {
                 Name = i.Name,
                 IsDone = i.IsDone
@@ -26,5 +28,7 @@ namespace TestApplicarion.Models
 
             return _res;
         }
+
+
     }
 }

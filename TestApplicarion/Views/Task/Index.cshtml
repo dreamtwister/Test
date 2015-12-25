@@ -1,10 +1,10 @@
-﻿@model IList<TestApplicarion.Models.TaskDTO>
+﻿@model TestApplicarion.Models.TasksPagingDTO
 
 @{
     ViewBag.Title = "Задачи";
 }
 
-@foreach (var task in Model)
+@foreach (var task in Model.Tasks)
 {
     <div class="item">
         <h3>@task.Name</h3>
