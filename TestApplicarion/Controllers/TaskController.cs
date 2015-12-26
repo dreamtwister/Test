@@ -29,9 +29,15 @@ namespace TestApplicarion.Controllers
             return View(_model.GetList(page));
         }
 
-        //public ActionResult List()
-        //{
-        //    return View("Index", _model.GetList());
-        //}
+        public ActionResult Card(Guid? id)
+        {
+            return View(_model.GetByID(id));
+        }
+
+        public ActionResult Save(TaskDTO task)
+        {
+            _model.Save(task);
+            return View("Index", _model.GetList());
+        }
     }
 }

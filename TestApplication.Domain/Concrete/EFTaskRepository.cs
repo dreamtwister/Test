@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,5 +17,10 @@ namespace TestApplication.Domain.Concrete
             get { return context.Tasks; }
         }
 
+        public void SaveTask(Task task)
+        {
+            context.Tasks.AddOrUpdate(task);
+            context.SaveChanges();
+        }
     }
 }

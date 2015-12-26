@@ -10,9 +10,11 @@ namespace TestApplication.Test.Concrete
 {
     public class EFTaskFakeRepository: ITasksRepository
     {
-        public IQueryable<Task> Tasks 
+        private List<Task> _tasks;
+
+        public EFTaskFakeRepository()
         {
-            get { return new[]
+            _tasks.AddRange(new[]
             {
                 new Task
                 {
@@ -91,7 +93,25 @@ namespace TestApplication.Test.Concrete
                     IsDone = false,
                     Name = "11"
                 }
-            }.AsQueryable();
+            });
+        }
+
+        public IQueryable<Task> Tasks 
+        {
+            get { return _tasks.AsQueryable(); }
+        }
+
+        public void SaveTask(Task task)
+        {
+            var __task = _tasks.FirstOrDefault(i => i.ID == task.ID);
+            if (task != null)
+            {
+                _tasks.Remove(__task);
+                _tasks.Add(task);
+            }
+            else
+            {
+                _tasks.Add(task);
             }
         }
     }
