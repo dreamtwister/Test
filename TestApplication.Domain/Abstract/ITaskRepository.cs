@@ -10,5 +10,7 @@ namespace TestApplication.Domain.Abstract
         IQueryable<Task> Tasks { get; }
 
         void SaveTask(Task task);
+
+        void DeleteTask(Task task);
     }
 }

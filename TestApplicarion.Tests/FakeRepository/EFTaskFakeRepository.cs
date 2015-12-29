@@ -10,7 +10,7 @@ namespace TestApplication.Test.Concrete
 {
     public class EFTaskFakeRepository: ITasksRepository
     {
-        private List<Task> _tasks;
+        private List<Task> _tasks = new List<Task>();
 
         public EFTaskFakeRepository()
         {
@@ -113,6 +113,11 @@ namespace TestApplication.Test.Concrete
             {
                 _tasks.Add(task);
             }
+        }
+
+        public void DeleteTask(Task task)
+        {
+            _tasks.Remove(task);
         }
     }
 }

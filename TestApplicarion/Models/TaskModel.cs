@@ -23,7 +23,6 @@ namespace TestApplicarion.Models
         {
             var _res = new TasksPagingDTO
             {
-                //todo пока так, сначала выведем список, потом наведем тут порядок
                 Tasks = _repository.Tasks
                 .OrderByDescending(i=>i.IsDone).ThenBy(i=>i.DeadLine)
                 .Skip((page - 1) * PageSize)
@@ -65,7 +64,7 @@ namespace TestApplicarion.Models
             {
                 var __task = new Task
                 {
-                    ID = Guid.NewGuid(),
+                    ID = task.ID != Guid.Empty ? task.ID : Guid.NewGuid(),
                     Name = task.Name,
                     IsDone = task.IsDone,
                     DeadLine = task.DeadLine
@@ -73,6 +72,13 @@ namespace TestApplicarion.Models
                 _repository.SaveTask(__task);
             }
             return true;
+        }
+
+        public void Delete(Guid id)
+        {
+            if (id == Guid.Empty) return;
+            var __task = _repository.Tasks.FirstOrDefault(i => i.ID == id);
+            if (__task != null) _repository.DeleteTask(__task);
         }
 
         Func<Task, TaskDTO> TaskToDTO = x => new TaskDTO()

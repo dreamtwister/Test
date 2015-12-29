@@ -22,5 +22,11 @@ namespace TestApplication.Domain.Concrete
             context.Tasks.AddOrUpdate(task);
             context.SaveChanges();
         }
+
+        public void DeleteTask(Task task)
+        {
+            context.Tasks.Remove(task);
+            context.SaveChanges();
+        }
     }
 }

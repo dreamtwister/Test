@@ -39,5 +39,11 @@ namespace TestApplicarion.Controllers
             _model.Save(task);
             return View("Index", _model.GetList());
         }
+
+        public ActionResult Delete(Guid? id)
+        {
+            _model.Delete(id.GetValueOrDefault());
+            return View("Index", _model.GetList());
+        }
     }
 }

@@ -40,3 +40,24 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+H3.isDoneColor {
+    background-color: lawngreen;
+}
+
+H3.isOutdateColor {
+    background-color: red;
+}
+
+H3.isTodayColor {
+    background-color: dodgerblue;
+}
+
+H3.isNotYetColor {
+    background-color: gray;
+}
+
+DIV.pager A.selected
+{
+    color: #b94a48;
+}

@@ -12,19 +12,19 @@
         <div>
             @if (task.IsDone)
             {
-                <h3 style="background-color: lawngreen">@task.Name</h3>
+                <h3 class="isDoneColor">@task.Name</h3>
             }
             else if (task.IsToday)
             {
-                <h3 style="background-color: dodgerblue">@task.Name</h3>
+                <h3 class="isTodayColor">@task.Name</h3>
             }
             else if (task.IsOutdate)
             {
-                <h3 style="background-color: red">@task.Name</h3>
+                <h3 class="isOutdateColor">@task.Name</h3>
             }
             else
             {
-                <h3 style="background-color: gray">@task.Name</h3>
+                <h3 class="isNotYetColor">@task.Name</h3>
             }
             <Label>Выполнено:</label>
             <input name="isDone" type="checkbox" disabled="disabled" checked=@task.IsDone/>
@@ -33,7 +33,9 @@
             <h5>@task.DeadLine</h5>
         </div>
         <div>
-            @Html.ActionLink("Редактировать задачу", "Card", new { id = task.ID.ToString() })
+            @Html.ActionLink("Редактировать", "Card", new { id = task.ID })
+            @Html.ActionLink("Просмотр", "Card", new { id = task.ID })
+            @Html.ActionLink("Удалить", "Delete", new { id = task.ID })
         </div>
     </div>
 
