@@ -4,17 +4,41 @@
     ViewBag.Title = "Задачи";
 }
 
+@Html.ActionLink("Добавить задачу","Card", "Task")
+
 @foreach (var task in Model.Tasks)
 {
-    <div class="item">
-        <h3>@task.Name</h3>
-        @if (task.IsDone)
-        {
-            <div>Выполнено</div>
-        }
-        else
-        {
-            <div>Невыполнено</div>
-        }
+    <div class="row" >
+        <div>
+            @if (task.IsDone)
+            {
+                <h3 style="background-color: lawngreen">@task.Name</h3>
+            }
+            else if (task.IsToday)
+            {
+                <h3 style="background-color: dodgerblue">@task.Name</h3>
+            }
+            else if (task.IsOutdate)
+            {
+                <h3 style="background-color: red">@task.Name</h3>
+            }
+            else
+            {
+                <h3 style="background-color: gray">@task.Name</h3>
+            }
+            <Label>Выполнено:</label>
+            <input name="isDone" type="checkbox" disabled="disabled" checked=@task.IsDone/>
+        </div>
+        <div>
+            <h5>@task.DeadLine</h5>
+        </div>
+        <div>
+            @Html.ActionLink("Редактировать задачу", "Card", new { id = task.ID.ToString() })
+        </div>
     </div>
+
 }
+
+<div class="pager">
+    @Html.PageLinks(Model.PageSize, Model.PageCount, Model.CurrentPage, x => Url.Action("Index", "Task", new { page = x }))
+</div>

@@ -12,6 +12,8 @@ namespace TestApplicarion.Models
     {
         private ITasksRepository _repository;
 
+        private int PageSize = 3;
+
         public TaskModel(ITasksRepository repository)
         {
             _repository = repository;
@@ -22,8 +24,16 @@ namespace TestApplicarion.Models
             var _res = new TasksPagingDTO
             {
                 //todo пока так, сначала выведем список, потом наведем тут порядок
-                Tasks = _repository.Tasks.ToList().Select(i => TaskToDTO(i)).ToList()
+                Tasks = _repository.Tasks
+                .OrderByDescending(i=>i.IsDone).ThenBy(i=>i.DeadLine)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize).Select(TaskToDTO).ToList()
             };
+
+            _res.CurrentPage = page;
+            _res.PageSize = PageSize;
+            _res.PageCount = _repository.Tasks.Count();
+
             return _res;
         }
 
@@ -34,7 +44,11 @@ namespace TestApplicarion.Models
             {
                 return TaskToDTO(__task);
             }
-            return new TaskDTO();
+            return new TaskDTO()
+            {
+                Name = String.Empty,
+                DeadLine = DateTime.Now.AddDays(1)
+            };
         }
 
         public bool Save(TaskDTO task)
@@ -61,15 +75,12 @@ namespace TestApplicarion.Models
             return true;
         }
 
-        private TaskDTO TaskToDTO(Task task)
+        Func<Task, TaskDTO> TaskToDTO = x => new TaskDTO()
         {
-            return new TaskDTO
-            {
-                ID = task.ID,
-                Name = task.Name,
-                IsDone = task.IsDone,
-                DeadLine = task.DeadLine
-            };
-        }
+            ID = x.ID,
+            Name = x.Name,
+            IsDone = x.IsDone,
+            DeadLine = x.DeadLine
+        };
     }
 }

@@ -1,11 +1,32 @@
 ﻿@model TestApplicarion.Models.TaskDTO
-
 @{
     ViewBag.Title = "Редактирование карточки";
 }
 
-@Html.BeginForm()
+@using (Html.BeginForm("Save", "Task", FormMethod.Post, new { id = "taskEditForm" }))
 {
     @Html.HiddenFor(x => x.ID)
+
+    <div class="row">
+        <label>Выполнено:</label>
+        @Html.CheckBoxFor(i => i.IsDone)
+    </div>
+
+    <div class="row">
+        <div class="input" style="width: 150px;">@Html.TextBoxFor(i=>i.DeadLine, new { @class = "datetimepicker-input-control" })</div>
+    </div>
+
+    <div class="row">
+        <label>Текст задачи</label>
+        @Html.TextBoxFor(i => i.Name)
+    </div>
+    <input type='submit' value='сохранить'/>
 }
 
+<script>
+    
+    $(document).ready(function () {
+        $('.datetimepicker-input-control').datetimepicker();
+    });
+
+</script>

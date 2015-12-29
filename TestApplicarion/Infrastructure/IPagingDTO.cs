@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TestApplicarion.Infrastructure
 {
-    interface IPagingDTO
+    public interface IPagingDTO
     {
         /// <summary>
         /// Количество записей на странице
