@@ -109,10 +109,6 @@ namespace TestApplication.Test.Concrete
                 _tasks.Remove(__task);
                 _tasks.Add(task);
             }
-            else
-            {
-                _tasks.Add(task);
-            }
         }
 
         public void DeleteTask(Task task)

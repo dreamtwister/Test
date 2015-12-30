@@ -35,7 +35,7 @@ namespace TestApplicarion.Tests
             _model.Save(__task);
             var __savedTask = _model.GetByID(__task.ID);
 
-            if (__savedTask == null) Assert.Fail("Задача не сохранилась");
+            Assert.IsNotNull(__savedTask, "Задача не сохранилась");
             Assert.AreEqual(__task.ID, __savedTask.ID, "ID новой задачи создан неправильно");
             Assert.AreEqual(__task.DeadLine, __savedTask.DeadLine, "дата новой задачи создана неправильно");
             Assert.AreEqual(__task.Name, __savedTask.Name, "текст новой задачи создан неправильно");
@@ -53,7 +53,7 @@ namespace TestApplicarion.Tests
             _model.Save(__task);
             var __savedTask = _model.GetByID(__task.ID);
 
-            if (__savedTask == null) Assert.Fail("Задача не сохранилась");
+            Assert.IsNotNull(__savedTask, "Задача не сохранилась");
             Assert.AreEqual(__task.DeadLine, __savedTask.DeadLine, "дата изменена неправильно");
             Assert.AreEqual(__task.Name, __savedTask.Name, "текст изменен неправильно");
             Assert.AreEqual(__task.IsDone, __savedTask.IsDone, "статус изменен неправильно");

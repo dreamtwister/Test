@@ -18,7 +18,7 @@ namespace TestApplicarion.HtmlHelpers
             int currentPage,
             Func<int, string> pageUrl)
         {
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
 
             var __elements = PagingBuilder.Generate(pageSize, pageCount, currentPage);
 

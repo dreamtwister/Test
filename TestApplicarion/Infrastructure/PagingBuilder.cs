@@ -151,7 +151,7 @@ namespace TestApplicarion.Infrastructure
                         Name = "<",
                         IsCurrent = false,
                         IsLink = true,
-                        Page = 1
+                        Page = currentPage - 1
                     });
                 }
 
@@ -163,7 +163,7 @@ namespace TestApplicarion.Infrastructure
                         Name = ">",
                         IsCurrent = false,
                         IsLink = true,
-                        Page = pageCount
+                        Page = currentPage + 1
                     });
                 }
             }

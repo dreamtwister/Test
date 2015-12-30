@@ -34,11 +34,11 @@
         </div>
         <div>
             @Html.ActionLink("Редактировать", "Card", new { id = task.ID })
-            @Html.ActionLink("Просмотр", "Card", new { id = task.ID })
+            @Html.ActionLink("Просмотр", "Card", new { id = task.ID, readOnly = true })
             @Html.ActionLink("Удалить", "Delete", new { id = task.ID })
         </div>
     </div>
-
+    
 }
 
 <div class="pager">

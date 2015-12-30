@@ -22,8 +22,8 @@ namespace TestApplicarion.Tests
         {
             int pageCount = 11;//Для одной записи на странице!
             var res = PagingBuilder.Generate(1, pageCount, 5).Count();
-            if (res > pageCount) Assert.Fail("Элементов больше чем нужно.");
-            if (res < pageCount) Assert.Fail("Элементов меньше чем нужно.");
+            if (res > pageCount) Assert.Fail("Элементов больше, чем нужно.");
+            if (res < pageCount) Assert.Fail("Элементов меньше, чем нужно.");
         }
 
         [TestMethod]
@@ -32,7 +32,7 @@ namespace TestApplicarion.Tests
             int pageCount = 11;//Для одной записи на странице!
             var res = PagingBuilder.Generate(1, pageCount, 6);
 
-            if (res.Count() != pageCount) Assert.Fail("Неверное число элементов.");
+            Assert.AreEqual(res.Count(), pageCount, "Неверное число элементов.");
             Assert.IsTrue(res[5].IsCurrent, "Неверно определена текущая страница.");
             Assert.IsFalse(String.IsNullOrWhiteSpace(res[0].Name), "Не задано наименование сдвига влево");
             Assert.IsFalse(String.IsNullOrWhiteSpace(res[10].Name), "Не задано наименование сдвига вправо");
@@ -46,8 +46,7 @@ namespace TestApplicarion.Tests
             int pageCount = 5;//Для одной записи на странице!
             var res = PagingBuilder.Generate(1, pageCount, 1);
             
-            if (res.Count() != 6) Assert.Fail("Неверное число элементов.");
-
+            Assert.AreEqual(res.Count(), 6, "Неверное число элементов.");
             var page = res[0];
             Assert.IsTrue(page.IsCurrent, "Неверно определена текущая страница.");
             Assert.IsTrue(page.IsLink, "Первая страница должна быть ссылкой.");
@@ -59,8 +58,7 @@ namespace TestApplicarion.Tests
             int pageCount = 5;//Для одной записи на странице!
             var res = PagingBuilder.Generate(1, pageCount, 5);
 
-            if (res.Count() != 6) Assert.Fail("Неверное число элементов.");
-
+            Assert.AreEqual(res.Count(), 6, "Неверное число элементов.");
             var page = res[5];
             Assert.IsTrue(page.IsCurrent, "Неверно определена текущая страница.");
             Assert.IsTrue(page.IsLink, "Последняя страница страница должна быть ссылкой.");
@@ -71,7 +69,7 @@ namespace TestApplicarion.Tests
         {
             int pageCount = 9;//Для одной записи на странице!
             var res = PagingBuilder.Generate(1, pageCount, 5);
-            if (res.Count() != 11) Assert.Fail("Неверное число элементов.");
+            Assert.AreEqual(res.Count(), 11, "Неверное число элементов.");
 
             Assert.IsTrue(res[2].IsLink, "Третий элемент отображения должен быть ссылкой");
             Assert.IsTrue(res[8].IsLink, "Третий с конца элемент отображения должен быть ссылкой");

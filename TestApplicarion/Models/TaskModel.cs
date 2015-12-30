@@ -12,7 +12,7 @@ namespace TestApplicarion.Models
     {
         private ITasksRepository _repository;
 
-        private int PageSize = 3;
+        private int PageSize = 2;
 
         public TaskModel(ITasksRepository repository)
         {
@@ -23,21 +23,26 @@ namespace TestApplicarion.Models
         {
             var _res = new TasksPagingDTO
             {
-                Tasks = _repository.Tasks
-                .OrderByDescending(i=>i.IsDone).ThenBy(i=>i.DeadLine)
-                .Skip((page - 1) * PageSize)
-                .Take(PageSize).Select(TaskToDTO).ToList()
+                Tasks = _repository.Tasks.OrderByDescending(i => i.IsDone)
+                    .ThenBy(i => i.DeadLine)
+                    .Skip((page - 1)*PageSize)
+                    .Take(PageSize).Select(TaskToDTO).ToList(),
+                CurrentPage = page,
+                PageSize = PageSize,
+                PageCount = _repository.Tasks.Count()
             };
-
-            _res.CurrentPage = page;
-            _res.PageSize = PageSize;
-            _res.PageCount = _repository.Tasks.Count();
 
             return _res;
         }
 
         public TaskDTO GetByID(Guid? id)
         {
+            if (id == null)
+                return new TaskDTO()
+                {
+                    Name = String.Empty,
+                    DeadLine = DateTime.Now.AddDays(1)
+                };
             var __task = _repository.Tasks.FirstOrDefault(i => i.ID == id);
             if (__task != null)
             {
@@ -50,7 +55,7 @@ namespace TestApplicarion.Models
             };
         }
 
-        public bool Save(TaskDTO task)
+        public void Save(TaskDTO task)
         {
             if (_repository.Tasks != null && _repository.Tasks.Select(i=>i.ID).Contains(task.ID))
             {
@@ -71,14 +76,14 @@ namespace TestApplicarion.Models
                 };
                 _repository.SaveTask(__task);
             }
-            return true;
         }
 
-        public void Delete(Guid id)
+        public bool Delete(Guid id)
         {
-            if (id == Guid.Empty) return;
+            if (id == Guid.Empty) return false;
             var __task = _repository.Tasks.FirstOrDefault(i => i.ID == id);
             if (__task != null) _repository.DeleteTask(__task);
+            return true;
         }
 
         Func<Task, TaskDTO> TaskToDTO = x => new TaskDTO()

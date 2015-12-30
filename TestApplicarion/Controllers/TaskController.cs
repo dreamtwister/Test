@@ -29,8 +29,9 @@ namespace TestApplicarion.Controllers
             return View(_model.GetList(page));
         }
 
-        public ActionResult Card(Guid? id)
+        public ActionResult Card(Guid? id, Boolean readOnly = false)
         {
+            ViewBag.ReadOnly = readOnly;
             return View(_model.GetByID(id));
         }
 
@@ -42,7 +43,8 @@ namespace TestApplicarion.Controllers
 
         public ActionResult Delete(Guid? id)
         {
-            _model.Delete(id.GetValueOrDefault());
+            if (id != null)
+                _model.Delete(id.GetValueOrDefault());
             return View("Index", _model.GetList());
         }
     }
